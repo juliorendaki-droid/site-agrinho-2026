@@ -5,13 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Agrinho 2026</title>
     <style>
-        /* Estilos Globais */
+        /* Variáveis de Cores (Tema Padrão) */
         :root {
-            --primary-color: #31a200; /* Verde Agro */
-            --secondary-color: #F9A825; /* Amarelo Sol */
-            --bg-color: #484141; /* Fundo claro */
+            --primary-color: #2E7D32; 
+            --secondary-color: #F9A825; 
+            --bg-color: #F1F8E9; 
             --text-color: #333333;
             --white: #FFFFFF;
+            --gray-light: #f5f5f5;
+            --border-color: #ddd;
+        }
+
+        /* Estilos para Alto Contraste (Acessibilidade) */
+        body.high-contrast {
+            --primary-color: #000000;
+            --secondary-color: #FFFF00;
+            --bg-color: #000000;
+            --text-color: #FFFFFF;
+            --white: #000000;
+            --gray-light: #111111;
+            --border-color: #FFFF00;
         }
 
         * {
@@ -19,6 +32,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         body {
@@ -27,15 +41,53 @@
             line-height: 1.6;
         }
 
-        /* Navegação */
+        /* Barra de Acessibilidade */
+        .accessibility-bar {
+            background-color: #222;
+            color: #fff;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        body.high-contrast .accessibility-bar {
+            background-color: #000;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .accessibility-btn {
+            background: none;
+            border: 1px solid #666;
+            color: #fff;
+            padding: 2px 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        body.high-contrast .accessibility-btn {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .accessibility-btn:hover {
+            background-color: #444;
+        }
+
+        /* Cabeçalho e Menu */
         header {
             background-color: var(--primary-color);
             color: var(--white);
-            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        body.high-contrast header {
+            border-bottom: 2px solid var(--secondary-color);
         }
 
         nav {
@@ -44,50 +96,53 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
         }
 
         nav h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--secondary-color);
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
         nav a {
             color: var(--white);
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s ease;
         }
 
         nav a:hover {
+            text-decoration: underline;
             color: var(--secondary-color);
         }
 
-        /* Seções */
+        /* Seções Básicas */
         section {
             max-width: 1200px;
-            margin: 3rem auto;
-            padding: 2rem;
+            margin: 2.5rem auto;
+            padding: 2.5rem;
             background-color: var(--white);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
+        body.high-contrast section {
+            border: 2px solid var(--secondary-color);
+        }
+
         h2 {
             color: var(--primary-color);
-            border-bottom: 2px solid var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color);
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
         }
 
         h3 {
-            color: #555;
             margin-top: 1.5rem;
             margin-bottom: 0.5rem;
         }
@@ -95,25 +150,23 @@
         /* Hero Banner */
         .hero {
             text-align: center;
-            background: linear-gradient(rgba(46, 125, 50, 0.8), rgba(46, 125, 50, 0.8)), url('https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80') center/cover;
-            color: var(--white);
-            padding: 6rem 2rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: #fff;
+            padding: 5rem 2rem;
             border-radius: 0;
-            margin-top: 0;
             max-width: 100%;
+            margin-top: 0;
+        }
+
+        body.high-contrast .hero {
+            background: #000;
+            border-bottom: 2px solid var(--secondary-color);
         }
 
         .hero h2 {
             color: var(--secondary-color);
             border: none;
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         /* Tabelas */
@@ -126,7 +179,7 @@
         th, td {
             padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--border-color);
         }
 
         th {
@@ -134,64 +187,149 @@
             color: var(--white);
         }
 
-        tr:hover {
-            background-color: #f5f5f5;
+        body.high-contrast th {
+            background-color: var(--secondary-color);
+            color: #000;
         }
 
-        /* Cards AgroRobótica */
-        .cards-container {
+        /* Grid Layout (Cards e Galeria) */
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
 
         .card {
-            background-color: var(--bg-color);
+            background-color: var(--gray-light);
             padding: 1.5rem;
             border-radius: 8px;
-            border-left: 5px solid var(--secondary-color);
+            border-top: 4px solid var(--primary-color);
         }
 
-        /* Cronograma */
-        .timeline {
-            border-left: 3px solid var(--primary-color);
-            padding-left: 1.5rem;
-            margin-left: 1rem;
+        body.high-contrast .card {
+            border: 1px solid var(--secondary-color);
         }
 
-        .timeline-item {
-            margin-bottom: 1.5rem;
-            position: relative;
+        /* Galeria Imagens Otimizadas */
+        .gallery-item {
+            background-color: var(--gray-light);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid var(--border-color);
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -29px;
-            top: 5px;
-            width: 15px;
-            height: 15px;
-            background-color: var(--secondary-color);
-            border-radius: 50%;
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
 
-        .timeline-date {
+        .gallery-item p {
+            padding: 1rem;
+            font-weight: bold;
+        }
+
+        /* FAQ Estilo Acordeon Nativo */
+        details {
+            background-color: var(--gray-light);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
+
+        details summary {
             font-weight: bold;
             color: var(--primary-color);
+        }
+
+        body.high-contrast details summary {
+            color: var(--secondary-color);
+        }
+
+        details p {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        /* Formulários */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--white);
+            color: var(--text-color);
+        }
+
+        button.btn-submit {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        body.high-contrast button.btn-submit {
+            background-color: var(--secondary-color);
+            color: #000;
+            border: 2px solid #fff;
+        }
+
+        button.btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* Links de Download */
+        .download-list a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        body.high-contrast .download-list a {
+            color: var(--secondary-color);
+        }
+
+        .download-list a:hover {
+            text-decoration: underline;
         }
 
         /* Rodapé */
         footer {
             text-align: center;
-            padding: 2rem;
-            background-color: #333;
-            color: var(--white);
-            margin-top: 3rem;
+            padding: 2.5rem;
+            background-color: #222;
+            color: #fff;
+            margin-top: 4rem;
+        }
+
+        body.high-contrast footer {
+            background-color: #000;
+            border-top: 2px solid var(--secondary-color);
         }
 
         /* Responsividade */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             nav {
                 flex-direction: column;
                 gap: 1rem;
@@ -200,14 +338,20 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            .hero h2 {
-                font-size: 2rem;
-            }
         }
     </style>
 </head>
 <body>
 
+    <!-- BARRA DE ACESSIBILIDADE -->
+    <div class="accessibility-bar">
+        <span>Acessibilidade:</span>
+        <button class="accessibility-btn" onclick="alterarFonte(1)" aria-label="Aumentar Texto">A+</button>
+        <button class="accessibility-btn" onclick="alterarFonte(-1)" aria-label="Diminuir Texto">A-</button>
+        <button class="accessibility-btn" onclick="AlternarContraste()" aria-label="Alternar Alto Contraste">🌓 Alto Contraste</button>
+    </div>
+
+    <!-- MENU PRINCIPAL -->
     <header>
         <nav>
             <h1>🌾 Agrinho 2026</h1>
@@ -215,120 +359,190 @@
                 <li><a href="#inicio">Início</a></li>
                 <li><a href="#temas">Temas</a></li>
                 <li><a href="#categorias">Categorias</a></li>
-                <li><a href="#cronograma">Cronograma</a></li>
-                <li><a href="#agrorobotica">AgroRobótica</a></li>
+                <li><a href="#premiacao">Premiação</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#downloads">Downloads</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contato">Inscrições</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- BANNER INICIAL -->
     <section id="inicio" class="hero">
         <h2>A educação construindo pontes para o futuro sustentável</h2>
-        <p>O Programa Agrinho completa 30 anos de história, levando aos estudantes das redes pública e privada uma proposta pedagógica focada na ética, cidadania, sustentabilidade e na conexão essencial entre o campo e a cidade.</p>
+        <p>O Programa Agrinho chega a 2026 consolidando propostas pedagógicas focadas na ética, cidadania e inovação, conectando diretamente a inteligência do campo à realidade urbana.</p>
     </section>
 
+    <!-- SEÇÃO TEMAS -->
     <section id="temas">
         <h2>📍 Temas Estaduais 2026</h2>
-        <p>O Agrinho adapta sua abordagem de acordo com a realidade de cada estado brasileiro. Confira os eixos temáticos deste ano:</p>
-        <ul>
-            <li><strong>Espírito Santo (ES):</strong> "Campo e Cidade: Conexões que transformam"</li>
-            <li><strong>Paraná (PR):</strong> "Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente"</li>
-            <li><strong>Mato Grosso do Sul (MS):</strong> "Agro que alimenta, gente que cuida"</li>
-            <li><strong>Goiás (GO):</strong> "Sementes do Bem: Cultivando saúde para mente, corpo e comunidade"</li>
-        </ul>
+        <p>Alinhado com as demandas de desenvolvimento regional, confira os focos temáticos do SENAR em cada região:</p>
+        <div class="grid-container">
+            <div class="card">
+                <h4>Espírito Santo (ES)</h4>
+                <p>"Campo e Cidade: Conexões que transformam"</p>
+            </div>
+            <div class="card">
+                <h4>Paraná (PR)</h4>
+                <p>"Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente"</p>
+            </div>
+            <div class="card">
+                <h4>Mato Grosso do Sul (MS)</h4>
+                <p>"Agro que alimenta, gente que cuida"</p>
+            </div>
+            <div class="card">
+                <h4>Goiás (GO)</h4>
+                <p>"Sementes do Bem: Cultivando saúde para mente, corpo e comunidade"</p>
+            </div>
+        </div>
     </section>
 
+    <!-- SEÇÃO CATEGORIAS -->
     <section id="categorias">
         <h2>🏆 Categorias do Concurso</h2>
-        <p>O concurso anual mobiliza mais de 800 mil crianças, jovens e educadores. Inscreva seus trabalhos nas seguintes áreas:</p>
+        <p>Estudantes da rede pública e privada podem expressar suas ideias em diferentes linguagens e mídias:</p>
         <table>
             <thead>
                 <tr>
                     <th>Categoria</th>
-                    <th>Público-Alvo</th>
-                    <th>Formato de Entrega</th>
+                    <th>Público Alvo</th>
+                    <th>Formato de Envio</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Desenho</strong></td>
-                    <td>Ed. Infantil e 1º ano</td>
-                    <td>Arte visual em formulário padrão sem colagens.</td>
+                    <td>Desenho</td>
+                    <td>Educação Infantil ao 1º ano</td>
+                    <td>Desenho feito à mão livre em folha timbrada oficial.</td>
                 </tr>
                 <tr>
-                    <td><strong>Redação</strong></td>
-                    <td>Ens. Fundamental e Médio</td>
-                    <td>Textos manuscritos respeitando o gênero textual do ano.</td>
+                    <td>Redação</td>
+                    <td>2º ano do Fundamental ao Ensino Médio</td>
+                    <td>Produção de texto manuscrito com gêneros específicos.</td>
                 </tr>
                 <tr>
-                    <td><strong>AgroRobótica</strong></td>
-                    <td>Ens. Fundamental II e Médio</td>
-                    <td>Projetos tecnológicos focados em problemas do campo.</td>
+                    <td>AgroRobótica</td>
+                    <td>Ensino Fundamental II e Ensino Médio</td>
+                    <td>Protótipos automatizados (Arduino/Kits) focados no campo.</td>
                 </tr>
                 <tr>
-                    <td><strong>Experiência Pedagógica</strong></td>
-                    <td>Professores e Gestores</td>
-                    <td>Relato das atividades e projetos multidisciplinares.</td>
+                    <td>Experiência Pedagógica</td>
+                    <td>Professores de todas as etapas</td>
+                    <td>Relatório detalhado das atividades interdisciplinares.</td>
                 </tr>
             </tbody>
         </table>
     </section>
 
-    <section id="cronograma">
-        <h2>📅 Cronograma Geral</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">Fevereiro a Maio</div>
-                <p><strong>Adesão das Escolas:</strong> Período em que diretores formalizam a participação da escola.</p>
+    <!-- SEÇÃO PREMIAÇÃO -->
+    <section id="premiacao">
+        <h2>🎁 Premiação 2026</h2>
+        <p>Reconhecemos o brilho e a dedicação de quem constrói o futuro da nossa terra:</p>
+        <div class="grid-container">
+            <div class="card" style="border-top-color: #2196F3;">
+                <h4>📱 Prêmios para Alunos</h4>
+                <p>Smartphones de última geração para os primeiros colocados de cada categoria regional, além de tablets e medalhas de honra ao mérito.</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Março a Junho</div>
-                <p><strong>Desenvolvimento:</strong> Professores trabalham os materiais didáticos e alunos criam seus projetos.</p>
+            <div class="card" style="border-top-color: #E91E63;">
+                <h4>💻 Prêmios para Professores</h4>
+                <p>Notebooks modernos para planejamentos pedagógicos e projetores multimídia entregues diretamente para as escolas dos finalistas.</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Agosto a Setembro</div>
-                <p><strong>Avaliação Estadual:</strong> Bancas formadas por especialistas avaliam os finalistas.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Novembro</div>
-                <p><strong>Cerimônia de Premiação:</strong> Grandes eventos presenciais revelando os campeões estaduais.</p>
+            <div class="card" style="border-top-color: #FF9800;">
+                <h4>🚗 Prêmio Especial do Júri</h4>
+                <p>Um automóvel 0km será entregue ao professor responsável pelo projeto vencedor absoluto na categoria Experiência Pedagógica Estadual.</p>
             </div>
         </div>
     </section>
 
-    <section id="agrorobotica">
-        <h2>🤖 Destaque: AgroRobótica e Programação</h2>
-        <p>A categoria AgroRobótica desafia os estudantes a se tornarem "makers", construindo soluções reais para os desafios do agronegócio usando eletrônica e programação.</p>
-        
-        <h3>Regras Básicas:</h3>
-        <ul>
-            <li>Equipes de até 3 alunos e 1 professor orientador.</li>
-            <li>Uso livre de hardware (Arduino, micro:bit, LEGO).</li>
-            <li><strong>Bônus de Sustentabilidade:</strong> Uso de sucata eletrônica e materiais recicláveis na carcaça.</li>
-        </ul>
-
-        <h3>Ideias de Projetos</h3>
-        <div class="cards-container">
-            <div class="card">
-                <h4>💧 Irrigação Inteligente</h4>
-                <p>Uso de sensor de umidade de solo ligado a um microcontrolador que aciona uma mini-bomba de água automaticamente apenas quando a terra está seca.</p>
+    <!-- SEÇÃO GALERIA (HALL DA FAMA) -->
+    <section id="galeria">
+        <h2>🌟 Hall da Fama: Projetos Inspiradores</h2>
+        <p>Confira alguns destaques de projetos e registros de edições anteriores do programa:</p>
+        <div class="grid-container">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Alunos testando componentes eletrônicos">
+                <p>Equipe Maker - Finalista de Robótica</p>
             </div>
-            <div class="card">
-                <h4>🚜 Robô Fazendeiro Autônomo</h4>
-                <p>Carrinho robótico programado com sensores ultrassônicos para simular o plantio de sementes em trajetos regulares e desviar de obstáculos na lavoura.</p>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Professores reunidos em feira educacional">
+                <p>Apresentação das Práticas Pedagógicas</p>
             </div>
-            <div class="card">
-                <h4>🌡️ Estufa Automatizada</h4>
-                <p>Monitoramento de temperatura e luz. O sistema liga ventiladores (coolers) se esquentar muito ou ativa painéis de LED para fotossíntese à noite.</p>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Crianças sorrindo no campo em aula prática">
+                <p>Estudo de Campo em Hortas Escolares</p>
             </div>
         </div>
     </section>
 
+    <!-- SEÇÃO DOWNLOADS -->
+    <section id="downloads">
+        <h2>📥 Central de Downloads</h2>
+        <p>Baixe os arquivos obrigatórios e referências técnicas para validar suas inscrições:</p>
+        <div class="download-list">
+            <p><a href="#">📄 Regulamento Geral e Editais Estaduais 2026 (.pdf)</a></p>
+            <p><a href="#">📝 Folha Padrão Oficial - Redação e Desenho (.pdf)</a></p>
+            <p><a href="#">📘 Manual do Orientador Maker - AgroRobótica 2026 (.pdf)</a></p>
+            <p><a href="#">📋 Modelo de Relatório de Experiência Pedagógica (.docx)</a></p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO FAQ (DÚVIDAS FREQUENTES) -->
+    <section id="faq">
+        <h2>❓ Dues Frequentes (FAQ)</h2>
+        <details>
+            <summary>Quem pode se inscrever no Programa Agrinho?</summary>
+            <p>Podem participar alunos e professores vinculados a escolas públicas (municipais e estaduais) e escolas privadas de ensino regular devidamente cadastradas junto à Secretaria de Educação do respectivo estado participante.</p>
+        </details>
+        <details>
+            <summary>Até quando posso enviar os trabalhos?</summary>
+            <p>O prazo final padrão para submissão na plataforma digital do SENAR varia por estado, mas a data limite estipulada no cronograma geral é o final do mês de Junho de 2026.</p>
+        </details>
+        <details>
+            <summary>Posso inscrever um aluno em mais de uma categoria?</summary>
+            <p>Sim! Um estudante pode participar enviando uma redação individual e, simultaneamente, fazer parte de um grupo focado no desenvolvimento de um projeto para a categoria de AgroRobótica.</p>
+        </details>
+    </section>
+
+    <!-- SEÇÃO CONTATO E INSCRIÇÃO -->
+    <section id="contato">
+        <h2>✉️ Intenção de Inscrição e Suporte</h2>
+        <p>Preencha os dados abaixo para receber as novidades do sistema do SENAR ou tirar dúvidas sobre o regulamento.</p>
+        <form onsubmit="alert('Obrigado pelo contato! Nossa equipe retornará o e-mail em breve.'); return false;">
+            <div class="form-group">
+                <label for="nome">Nome do Professor Responsável / Diretor:</label>
+                <input type="text" id="nome" required placeholder="Digite seu nome completo">
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail para Contato:</label>
+                <input type="email" id="email" required placeholder="exemplo@escola.com">
+            </div>
+            <div class="form-group">
+                <label for="estado">Seu Estado:</label>
+                <select id="estado" required>
+                    <option value="">Selecione...</option>
+                    <option value="PR">Paraná</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mensagem">Sua Dúvida ou Mensagem:</label>
+                <textarea id="mensagem" rows="5" placeholder="Como podemos ajudar sua escola no Agrinho 2026?"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Enviar Solicitação</button>
+        </form>
+    </section>
+
+    <!-- RODAPÉ -->
     <footer>
-        <p>&copy; 2026 Portal Agrinho. Projeto de exemplo gerado por IA.</p>
+        <p>&copy; 2026 Portal Agrinho Hub. Desenvolvido para fins educacionais e suporte ao ambiente Maker escolar.</p>
     </footer>
 
+    <!-- LOGICA JAVASCRIPT (ROLAGEM E ACESSIBILIDADE) -->
     <script>
-        // Script simples para rolagem suave ao clicar nos links do menu
+        // Função de Rolagem Suave para os Links do Menu
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -338,6 +552,22 @@
                 });
             });
         });
+
+        // Funções do Menu de Acessibilidade
+        let tamanhoFonteAtual = 100; // Porcentagem padrão
+        
+        function alterarFonte(direcao) {
+            tamanhoFonteAtual += (direcao * 10);
+            // Restringe o zoom para não quebrar o layout (entre 80% e 140%)
+            if (tamanhoFonteAtual < 80) tamanhoFonteAtual = 80;
+            if (tamanhoFonteAtual > 140) tamanhoFonteAtual = 140;
+            
+            document.documentElement.style.fontSize = tamanhoFonteAtual + '%';
+        }
+
+        function AlternarContraste() {
+            document.body.classList.toggle('high-contrast');
+        }
     </script>
 </body>
 </html>
